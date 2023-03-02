@@ -8,7 +8,7 @@
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = false
-lvim.colorscheme = "gruvbox"
+--lvim.colorscheme = "gruvbox"
 
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -68,11 +68,15 @@ local dap = require("dap")
                 request = "launch",
                 name = "Launch file",
                 program = "${file}", -- This configuration will launch the current file if used.
+                pythonPath = function()
+                  if os.getenv("VIRTUAL_ENV") == nil then
+                    return "/usr/bin/python3"
+                  else
+                    return os.getenv("VIRTUAL_ENV") .. "/bin/python3"
+                  end
+                end
               },
           }
-
-
-
 
 -- **********************
 -- Additional Plugins
